@@ -676,16 +676,14 @@ export default function App() {
             <Descriptions.Item label="Score">
               <span
                 className={`font-bold ${detailRecord.score >= 50
-                    ? "text-emerald-600"
-                    : "text-red-500"
+                  ? "text-emerald-600"
+                  : "text-red-500"
                   }`}
               >
                 {detailRecord.score}
               </span>
             </Descriptions.Item>
-            <Descriptions.Item label="Points">
-              {detailRecord.points}
-            </Descriptions.Item>
+
             <Descriptions.Item label="Status">
               {detailRecord.status === "Passed" ? (
                 <Tag color="success">Passed</Tag>
