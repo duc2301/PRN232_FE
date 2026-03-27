@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "PRN232 NMS API",
+		"description": "Postman collection for testing all PRN232.NMS.API endpoints deployed on Docker at localhost:8080",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Folders",
+			"description": "FolderController endpoints — CRUD operations on submissions/folders",
+			"item": [
+				{
+					"name": "Get Subfolders (Scan Directory)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"projectFolder\": \"C:\\\\Users\\\\Admin\\\\Desktop\\\\submissions\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/folders",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "folders"]
+						},
+						"description": "Scans the given directory and returns its subfolders (student submission directories)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Submissions (Default Paging)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/folders?Page=1&PageSize=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "folders"],
+							"query": [
+								{
+									"key": "Page",
+									"value": "1"
+								},
+								{
+									"key": "PageSize",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Returns a paginated list of all submissions. Supports optional query parameters: SearchName, SortOption, StatusList."
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Submissions (With Search & Sort)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/folders?Page=1&PageSize=10&SearchName=Thinh&SortOption=name_asc",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "folders"],
+							"query": [
+								{
+									"key": "Page",
+									"value": "1"
+								},
+								{
+									"key": "PageSize",
+									"value": "10"
+								},
+								{
+									"key": "SearchName",
+									"value": "Thinh"
+								},
+								{
+									"key": "SortOption",
+									"value": "name_asc"
+								}
+							]
+						},
+						"description": "Returns a paginated list of submissions filtered by name and sorted."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Submission By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/folders/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "folders", "1"]
+						},
+						"description": "Returns the submission with the specified ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Folder Path",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"projectFolder\": \"C:\\\\Users\\\\Admin\\\\Desktop\\\\submissions\\\\SE171286_ThinhVQSE171286\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/folders/1/path",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "folders", "1", "path"]
+						},
+						"description": "Updates the folder path of the submission with the specified ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Submission",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/folders/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "folders", "1"]
+						},
+						"description": "Hard-deletes the submission with the specified ID."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Grading",
+			"description": "GradingController endpoints — Grade single or all student submissions",
+			"item": [
+				{
+					"name": "Grade Single Submission",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"projectFolder\": \"C:\\\\Users\\\\Admin\\\\Desktop\\\\submissions\\\\SE171286_ThinhVQSE171286\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/students/single-directory",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "students", "single-directory"]
+						},
+						"description": "Grades a single student submission by specifying the project folder path."
+					},
+					"response": []
+				},
+				{
+					"name": "Grade All Submissions",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/students/all-directory",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "students", "all-directory"]
+						},
+						"description": "Grades all student submissions that have been scanned/registered in the system."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
